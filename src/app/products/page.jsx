@@ -1,5 +1,4 @@
-import NotFound from "@/app/not-found";
-import Image from "next/image";
+import Link from "next/link";
 
 const allProducts = [
   {
@@ -40,22 +39,21 @@ const allProducts = [
   },
 ];
 
-async function getProductById(id) {
-  return allProducts.find((p) => p.id === id);
-}
-
-export default async function ProductDetailPage({ params }) {
-  const { id } = await params;
-  const product = await getProductById(id);
-  if (!product) {
-    return <NotFound />;
-  }
+export default function PageList() {
   return (
-    <div className="text-center">
-      <h2> test dinamic {product.id}</h2>
-      <p>name: {product.name}</p>
-      <p>price: {product.price}</p>
-      <p>description: {product.description}</p>
+    <div>
+      <h1 className="text-center">PRODUCT LIST</h1>
+      <h2 className="text-center p-4 gap-1 justify-between ">
+        
+          {allProducts.map((product) => (
+            <Link href={`/products/${product.id}`} key={product.id}>
+              <h3>{product.name}</h3>
+              <p>{product.price}</p>
+              <hr />
+            </Link>
+          ))}
+        
+      </h2>
     </div>
   );
 }
