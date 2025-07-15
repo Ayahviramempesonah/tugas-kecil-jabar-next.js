@@ -4,6 +4,14 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 First, run the development server:
 
+## this project has been upgrade to next.js 15.4.1
+
+- if you want upgrade the next project following code
+
+```
+npx @next/codemod@canary upgrade latest
+```
+
 ```bash
 npm run dev
 # or
