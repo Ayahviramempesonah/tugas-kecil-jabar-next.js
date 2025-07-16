@@ -79,8 +79,15 @@ const data = [
   },
 ];
 
-export const product = {
-  id: 1,
-  name: "jamilah",
-  email: "wkwk@gmail.com",
-};
+export const product = [
+  {
+    id: 1,
+    name: "jamilah",
+    email: "wkwk@gmail.com",
+  },
+  {
+    id: 2,
+    name: "mulan",
+    email: "mul@gmail.com",
+  },
+];

@@ -21,6 +21,9 @@ export default function Navbar() {
           <li>
             <Link href="/products">product</Link>
           </li>
+          <li>
+            <Link href="/productx">productxs</Link>
+          </li>
         </ul>
         {/* <Link href="/">home</Link> */}
       </div>
