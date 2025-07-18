@@ -1,12 +1,38 @@
 import { NextResponse } from "next/server";
-import { product } from "@/app/lib/data";
+import { neon } from "@neondatabase/serverless";
 
-export function GET(request, { params }) {
-  return NextResponse.json({ product });
+export async function GET(request, { params }) {
+  try {
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          message: "DATABASE_URL tidak ditemukan divariable",
+        },
+        { status: 500 },
+      );
+    }
+
+    const sql = neon(process.env.DATABASE_URL);
+
+    const product = await sql`SELECT * FROM  "Product"  `;
+
+    return NextResponse.json(product);
+  } catch (error) {
+    console.error("gagal mengambil data dari server");
+    return NextResponse.json(
+      { message: "gagal mengambil data dari server" },
+      { status: 500 },
+    );
+  }
+
+  // const product = await sql`SELECT * FROM  "Product"  `;
+
+  // return NextResponse.json(product);
 }
 export async function POST(request) {
   try {
     const body = await request.json();
+    const { name, email } = body;
 
     // Validasi input
     if (!body.name || !body.email) {
@@ -16,19 +42,26 @@ export async function POST(request) {
       );
     }
 
-    // Buat produk baru
-    const newProduct = {
-      id: product.length + 1,
-      name: body.name,
-      email: body.email,
-    };
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          message: "DATABASE_URL tidak ditemukan divariable",
+        },
+        { status: 500 },
+      );
+    }
 
-    product.push(newProduct);
+    const sql = neon(process.env.DATABASE_URL);
+
+    const newProduct = await sql`INSERT INTO "Product" ("name","email")
+VALUES (${name},${email}) RETURNING *
+
+`;
 
     return NextResponse.json(
       {
         message: "Product created successfully",
-        product: newProduct,
+        product: newProduct[0],
       },
       { status: 201 },
     );

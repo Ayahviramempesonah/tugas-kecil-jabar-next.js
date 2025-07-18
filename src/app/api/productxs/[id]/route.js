@@ -1,34 +1,29 @@
 import { NextResponse } from "next/server";
-import { product } from "@/app/lib/data";
-// Data dummy untuk testing - idealnya ini dari database
-// const products = [
-//   {
-//     id: 1,
-//     name: "jamilah",
-//     email: "wkwk@gmail.com",
-//   },
-//   {
-//     id: 2,
-//     name: "mulan",
-//     email: "mul@gmail.com",
-//   },
-// ];
+import { neon } from "@neondatabase/serverless";
 
 // Handler untuk GET request by ID
 export async function GET(request, { params }) {
+  const { id } = params;
   try {
-    const { id } = params;
-    const productId = parseInt(id);
-
-    // Cari produk berdasarkan ID
-    const product = product.find((p) => p.id === productId);
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          message: "DATABASE_URL tidak ditemukan",
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+    const sql = neon(process.env.DATABASE_URL);
+    const product = sql`SELECT * FROM "Product" WHERE id=${id} `;
 
     if (!product) {
       return NextResponse.json({ error: "Product not found" }, { status: 404 });
     }
 
     return NextResponse.json({
-      product: product,
+      product: product[0],
     });
   } catch (error) {
     return NextResponse.json(
@@ -42,25 +37,51 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const { id } = params;
-    const productId = parseInt(id);
+    // const productId = parseInt(id);
     const body = await request.json();
-
-    // Cari index produk
-    const productIndex = product.findIndex((p) => p.id === productId);
-
-    if (productIndex === -1) {
-      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    const { name, email } = body;
+    if (!name && !email) {
+      return NextResponse.json(
+        {
+          message: "name dan email harus diisi",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          message: "DATABASE_URL tidak ditemukan",
+        },
+        {
+          status: 500,
+        },
+      );
     }
 
-    // Update produk
-    product[productIndex] = {
-      ...product[productIndex],
-      ...body,
-    };
+    const sql = neon(process.env.DATABASE_URL);
+    const updateProduct =
+      await sql`UPDATE "Product" SET name =${name},email=${email} WHERE id = ${id} RETURNING * `;
+
+    if (updateProduct === 0) {
+      return NextResponse.json(
+        {
+          message: "product tidak ditemukan untuk di update",
+        },
+        {
+          status: 404,
+        },
+      );
+    }
+    // if (productIndex === -1) {
+    //   return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    // }
 
     return NextResponse.json({
       message: "Product updated successfully",
-      product: product[productIndex],
+      product: updateProduct[0],
     });
   } catch (error) {
     return NextResponse.json(
@@ -74,17 +95,28 @@ export async function PUT(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     const { id } = params;
-    const productId = parseInt(id);
 
-    // Cari index produk
-    const productIndex = product.findIndex((p) => p.id === productId);
-
-    if (productIndex === -1) {
-      return NextResponse.json({ error: "Product not found" }, { status: 404 });
+    if (!process.env.DATABASE_URL) {
+      return NextResponse.json(
+        {
+          message: "DATABASE_URL tidak ditemukan",
+        },
+        {
+          status: 500,
+        },
+      );
     }
 
-    // Hapus produk
-    const deletedProduct = product.splice(productIndex, 1)[0];
+    const sql = neon(process.env.DATABASE_URL);
+    const deletedProduct =
+      await sql` DELETE FROM "Product" WHERE id = ${id} RETURNING *`;
+
+    if (deletedProduct === 0) {
+      return NextResponse.json(
+        { message: "tidak ada produk untuk dihapus" },
+        { status: 404 },
+      );
+    }
 
     return NextResponse.json({
       message: "Product deleted successfully",
