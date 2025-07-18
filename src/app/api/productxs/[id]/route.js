@@ -2,8 +2,8 @@ import { NextResponse } from "next/server";
 import { neon } from "@neondatabase/serverless";
 
 // Handler untuk GET request by ID
-export async function GET(request, { params }) {
-  const { id } = params;
+export async function GET(request, context) {
+  const { id } = context.params;
   try {
     if (!process.env.DATABASE_URL) {
       return NextResponse.json(
@@ -34,9 +34,11 @@ export async function GET(request, { params }) {
 }
 
 // Handler untuk PUT request (update produk)
-export async function PUT(request, { params }) {
+export async function PUT(request, context) {
+  const { id } = context.params;
+
   try {
-    const { id } = params;
+    // const { id } = params;
     // const productId = parseInt(id);
     const body = await request.json();
     const { name, email } = body;
@@ -92,9 +94,9 @@ export async function PUT(request, { params }) {
 }
 
 // Handler untuk DELETE request
-export async function DELETE(request, { params }) {
+export async function DELETE(request, context) {
   try {
-    const { id } = params;
+    const { id } = context.params;
 
     if (!process.env.DATABASE_URL) {
       return NextResponse.json(
