@@ -32,16 +32,12 @@ export default function ProductApiPage() {
       const data = await response.json();
       console.log("ini data", data);
 
-      if (data.product && Array.isArray(data.product)) {
-        setProducts(data.product);
-      } else {
-        setProducts([]);
-        console.warn("API response doesn't contain valid product array");
-      }
+      // if (data.product && Array.isArray(data.product)) {
+      setProducts(data);
     } catch (error) {
       console.error("Fetch error:", error);
       setError(error.message);
-      setProducts([]);
+      // setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -77,7 +73,6 @@ export default function ProductApiPage() {
 
       const result = await response.json();
 
-      // Update product in state
       setProducts((prevProducts) =>
         prevProducts.map((product) =>
           product.id === editingProduct.id ? result.product : product,
@@ -143,7 +138,7 @@ export default function ProductApiPage() {
 
   // Handle delete product
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this product?")) {
+    if (!confirm(`Are you sure you want to delete this product?${id}`)) {
       return;
     }
 
