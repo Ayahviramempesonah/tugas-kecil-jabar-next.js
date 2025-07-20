@@ -43,17 +43,18 @@ export default function PageList() {
   return (
     <div>
       <h1 className="text-center">PRODUCT LIST</h1>
-      <h2 className="text-center p-4 gap-1 justify-between ">
-        
-          {allProducts.map((product) => (
-            <Link href={`/products/${product.id}`} key={product.id}>
-              <h3>{product.name}</h3>
-              <p>{product.price}</p>
-              <hr />
-            </Link>
-          ))}
-        
-      </h2>
+      <div className="text-center p-4 gap-1 justify-between grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {allProducts.map((product) => (
+          <Link
+            className="border group rounded-lg bg-fuchsia-400 "
+            href={`/products/${product.id}`}
+            key={product.id}
+          >
+            <h3 className="p-2 m-2 ">{product.name}</h3>
+            <p>{product.price}</p>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

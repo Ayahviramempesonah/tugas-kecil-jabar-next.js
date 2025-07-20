@@ -51,11 +51,15 @@ export default async function ProductDetailPage({ params }) {
     return <NotFound />;
   }
   return (
-    <div className="text-center">
-      <h2> test dinamic {product.id}</h2>
-      <p>name: {product.name}</p>
-      <p>price: {product.price}</p>
-      <p>description: {product.description}</p>
-    </div>
+    <>
+      <div className=" p-4 m-2 text-center grid rounded-lg border">
+        <h2> test dinamic {product.id}</h2>
+        {/* <diV className="grig border rounded-b-full">  */}
+        <p>name: {product.name}</p>
+        <p>price: {product.price}</p>
+        <p>description: {product.description}</p>
+        {/* </div> */}
+      </div>
+    </>
   );
 }

@@ -138,7 +138,7 @@ export default function ProductApiPage() {
 
   // Handle delete product
   const handleDelete = async (id) => {
-    if (!confirm(`Are you sure you want to delete this product?${id}`)) {
+    if (!confirm(`Are you sure you want to delete this product id${id}?`)) {
       return;
     }
 
