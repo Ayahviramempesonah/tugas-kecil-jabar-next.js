@@ -71,14 +71,6 @@ export default function ProductApiPage() {
         );
       }
 
-      const result = await response.json();
-
-      setProducts((prevProducts) =>
-        prevProducts.map((product) =>
-          product.id === editingProduct.id ? result.product : product,
-        ),
-      );
-
       // Reset form and editing state kembali ke 0 / seharusnya setelah edit dia bersih
       setFormData({ name: "", email: "" });
       setEditingProduct(null);
