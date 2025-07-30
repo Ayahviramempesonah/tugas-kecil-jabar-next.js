@@ -24,12 +24,12 @@ bun dev
 - setiap tugas berjalan dengan baik tanpa error,sesuai kriteria dan tepat waktu, dikumpulkan sebelum deadline
 - saya buatkan link untuk mempermudah reviewer, namun untuk lebih detailsilahkan lihat commit beserta tanggalnya
 
-- tugas-pertemuan-2[https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/cc03e0b]
-- tugas-pertemuan-4[https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/96667ef]
-- tugas pertemuan-5[https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/b247ccd]
-  - merge branch tugas-ertemuan-5[https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/67ef97c]
-  - update readme dan fix dikit tugas-pertemuan-5[https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/c64850e]
-- tugas pertemuan-6[https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/8f82ea8]
+- [tugas-pertemuan-2](https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/cc03e0b)
+- [tugas-pertemuan-4](https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/96667ef)
+- [tugas pertemuan-5](https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/b247ccd)
+  - [merge branch tugas-ertemuan-5](https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/67ef97c)
+  - [update readme dan fix dikit tugas-pertemuan-5](https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/c64850e)
+- [tugas pertemuan-6](https://github.com/Ayahviramempesonah/tugas-kecil-jabar-next.js/commit/8f82ea8)
 
 ```
 
